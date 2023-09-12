@@ -12,7 +12,7 @@ Apache 2.0 License.
 3. Hetzner CSI for K8S storage (to avoid OpenEBS or Ceph).
 4. Talos Linux as base OS. 
 5. Flux up and running. 
-6. Hetzner LB (K8S api ingress), traefik and cert-amanger defined in the repo for flux to deploy.
+6. Hetzner LB (K8S api ingress), traefik and cert-manager defined in the repo for flux to deploy.
 7. Ampere (ARM) instances to lower the cost. 
 8. IPv4 and 6 for all. 
 9. 3xCAX11 for the control plane nodes, and 2xCAX31 for the workers. 
@@ -26,7 +26,7 @@ A git repo (this one) with some terraform to deploy the cluster, and flux to mai
 ## Not needed
 
 * To run any of the actual services on there other than Flux, Traefik and Cert-Manager. You could run a sample workload via Flux as experiment. 
-* To use my own Hetzner account, client supplies API access to his (don't even dream of finding the keys to it here, I wasn't born yesterday). 
+* To use my own Hetzner account, client supplies API access to his (don't even dream of finding the keys to it here, I wasn't born yesterday, I've been doing this for a while). 
 * To create my own Talos OS snapshot, client supplies his own ready-made snapshots for this (a quick google also reveals they aren't hard to produce though). 
 
 ## Some initial thoughts
