@@ -5,17 +5,17 @@ resource "hcloud_server" "controlplane" {
   count       = 3 
   name        = "cplane${count.index + 1}"  
   server_type = "cax11"
-  image       = "ubuntu-22.04"
+  image       = "ubuntu-22.04" # Placeholder OS. This will change to Talos OS
 }
 
 resource "hcloud_server" "workers" {
   count       = 2 
   name        = "worker${count.index + 1}"  
   server_type = "cax31"
-  image       = "ubuntu-22.04" # Placeholder OS. This will change to Talos
+  image       = "ubuntu-22.04" # Placeholder OS. This will change to Talos OS
 }
 
-
+# TODO: Point it to somewhere
 resource "hcloud_load_balancer" "load_balancer" {
   name               = "funky-load-balancer"
   load_balancer_type = "lb11"
