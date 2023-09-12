@@ -33,6 +33,7 @@ A git repo (this one) with some terraform to deploy the cluster, and flux to mai
 
 * Run a Min.io single-node development server as destination for the Velero backups. This should be configurable in the Terraformed code. 
 * Make everything that can be a variable, a variable. So all that's needed for upgrades is to change some tfvars file. 
+* To configure software running on each instance you can always pass cloud-init config directly from terraform. 
 
 ## Some reading:
 
