@@ -29,6 +29,10 @@ A git repo (this one) with some terraform to deploy the cluster, and flux to mai
 * To use my own Hetzner account, client supplies API access to his (don't even dream of finding the keys to it here, I wasn't born yesterday, I've been doing this for a while). 
 * To create my own Talos OS snapshot, client supplies his own ready-made snapshots for this (a quick google also reveals they aren't hard to produce though). 
 
+## Optional stretch:
+
+* Being able to add x86 worker nodes (there are snapshots for this too)
+
 ## Some initial thoughts
 
 * Run a Min.io single-node development server as destination for the Velero backups. This should be configurable in the Terraformed code. 
