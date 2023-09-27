@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hetz-lb
+  name: he-lb
   namespace: default
   annotations:
     load-balancer.hetzner.cloud/location: nbg1
