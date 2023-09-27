@@ -9,6 +9,17 @@ data "talos_machine_configuration" "controlplane" {
   machine_type     = "controlplane"
   cluster_endpoint = "https://${hcloud_load_balancer.load_balancer.ipv4}:6443"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
+  config_patches = [
+    yamlencode({
+      machine = {
+        kubelet = {
+            extraArgs = {
+                cloud-provider = "external"
+            }
+        }
+      }
+    })
+  ]
 }
 
 data "talos_machine_configuration" "worker" {
@@ -16,6 +27,17 @@ data "talos_machine_configuration" "worker" {
   machine_type     = "worker"
   cluster_endpoint = "https://${hcloud_load_balancer.load_balancer.ipv4}:6443"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
+  config_patches = [
+    yamlencode({
+      machine = {
+        kubelet = {
+            extraArgs = {
+                cloud-provider = "external"
+            }
+        }
+      }
+    })
+  ]
 }
 
 # This creates talosconfig itself, it is the equivalent to talosctl config endpoints blablabla...

@@ -7,6 +7,7 @@ metadata:
     load-balancer.hetzner.cloud/location: nbg1
     load-balancer.hetzner.cloud/name: funky-load-balancer
 spec:
+  providerID: hcloud://16854885
   type: LoadBalancer
   selector:
     app: traefik
