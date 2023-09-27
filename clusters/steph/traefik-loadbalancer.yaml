@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: traefik-dashboard-loadbalancer
+  namespace: default
 spec:
   type: LoadBalancer
   selector:
