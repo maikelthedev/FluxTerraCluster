@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-dashboard-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: traefik
+  ports:
+    - name: dashboard
+      port: 8080  # Port for accessing the dashboard
+      targetPort: 8080  # Port exposed by Traefik for the dashboard

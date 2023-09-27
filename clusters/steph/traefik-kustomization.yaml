@@ -6,4 +6,5 @@ metadata:
 resources:
   - traefik-deployment.yaml
   - traefik-service.yaml
-  - traefik-dashboard-service.yaml  # Add this line to include the dashboard service
+  - traefik-dashboard-service.yaml  
+  - traefik-loadbalancer.yaml
