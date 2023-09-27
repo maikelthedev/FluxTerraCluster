@@ -22,6 +22,6 @@ output "ip_first_controlplane" {
 }
 
 output "kubeconfig" {
-    value = data.talos_cluster_kubeconfig.mykubeconfig.kubeconfig_raw
+    value = data.talos_cluster_kubeconfig.mykubeconfig
     sensitive = true
 }

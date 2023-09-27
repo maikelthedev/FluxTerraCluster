@@ -1,5 +1,3 @@
-variable "hcloud_token" {}
-
 terraform {
   required_providers {
     hcloud = {
@@ -9,6 +7,14 @@ terraform {
     talos = {
       source = "siderolabs/talos"
       version = "0.4.0-alpha.0"
+    }
+    flux = {
+      source = "fluxcd/flux"
+      version = "1.1.1"
+    }
+      github = {
+      source  = "integrations/github"
+      version = ">=5.18.0"
     }
   }
 }
