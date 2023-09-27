@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: traefik-dashboard-loadbalancer
   namespace: default
+  annotations:
+    load-balancer.hetzner.cloud/location: hel1
 spec:
   type: LoadBalancer
   selector:
