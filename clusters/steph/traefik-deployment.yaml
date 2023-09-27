@@ -18,6 +18,7 @@ spec:
           image: traefik:v2.5  # Adjust the image version as needed
           args:
             - --api.insecure=true  # Enable Traefik dashboard for demo purposes
+            - --api.dashboard=true  # Enable Traefik dashboard
           ports:
             - name: http
               containerPort: 80
