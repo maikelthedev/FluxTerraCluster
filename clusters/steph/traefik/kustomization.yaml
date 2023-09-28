@@ -4,5 +4,4 @@ resources:
 - namespace.yaml
 - helmrelease.yaml
 - helmrepository.yaml
-- ingress.yaml
 namespace: traefik
