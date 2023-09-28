@@ -24,7 +24,7 @@ spec:
         enabled: true
     globalArguments: []
     service:
-      type: LoadBalancer
+      type: NodePort
     ports:
       web:
         nodePort: 32080
