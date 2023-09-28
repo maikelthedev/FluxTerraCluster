@@ -7,7 +7,7 @@ metadata:
     app: podinfo
 spec:
   rules:
-  - host: cplane1.mkl.lol
+  - host: funky.mkl.lol
     http:
       paths:
       - path: /

@@ -17,15 +17,28 @@ resource "hcloud_load_balancer_service" "load_balancer_service" {
     destination_port = 6443
 }
 
-resource "hcloud_load_balancer_target" "load_balancer_target" {
+resource "hcloud_load_balancer_service" "load_balancer_service" {
+    load_balancer_id = hcloud_load_balancer.load_balancer.id
+    protocol         = "tcp"
+    listen_port = 80
+    destination_port = 32080
+}
+
+resource "hcloud_load_balancer_target" "load_balancer_target_cp" {
   type             = "label_selector"
   load_balancer_id = hcloud_load_balancer.load_balancer.id
   label_selector = "type=controlplane"
 }
 
-# Give the load balancer this private IP
-resource "hcloud_load_balancer_network" "srvnetwork" {
+resource "hcloud_load_balancer_target" "load_balancer_target_worker" {
+  type             = "label_selector"
   load_balancer_id = hcloud_load_balancer.load_balancer.id
-  network_id       = hcloud_network.mynetwork.id
-  ip               = "10.0.1.5"
+  label_selector = "type=worker"
 }
+
+# Give the load balancer this private IP
+# resource "hcloud_load_balancer_network" "srvnetwork" {
+#   load_balancer_id = hcloud_load_balancer.load_balancer.id
+#   network_id       = hcloud_network.mynetwork.id
+#   ip               = "10.0.1.5"
+# }
