@@ -10,18 +10,25 @@ resource "hcloud_load_balancer" "load_balancer" {
   }
 }
 
-resource "hcloud_load_balancer_service" "load_balancer_service" {
+resource "hcloud_load_balancer_service" "load_balancer_service_talos" {
     load_balancer_id = hcloud_load_balancer.load_balancer.id
     protocol         = "tcp"
     listen_port = 6443
     destination_port = 6443
 }
 
-resource "hcloud_load_balancer_service" "load_balancer_service" {
+resource "hcloud_load_balancer_service" "load_balancer_service_http" {
     load_balancer_id = hcloud_load_balancer.load_balancer.id
     protocol         = "tcp"
     listen_port = 80
     destination_port = 32080
+}
+
+resource "hcloud_load_balancer_service" "load_balancer_service_https" {
+    load_balancer_id = hcloud_load_balancer.load_balancer.id
+    protocol         = "tcp"
+    listen_port = 443
+    destination_port = 32443
 }
 
 resource "hcloud_load_balancer_target" "load_balancer_target_cp" {
@@ -30,11 +37,6 @@ resource "hcloud_load_balancer_target" "load_balancer_target_cp" {
   label_selector = "type=controlplane"
 }
 
-resource "hcloud_load_balancer_target" "load_balancer_target_worker" {
-  type             = "label_selector"
-  load_balancer_id = hcloud_load_balancer.load_balancer.id
-  label_selector = "type=worker"
-}
 
 # Give the load balancer this private IP
 # resource "hcloud_load_balancer_network" "srvnetwork" {
