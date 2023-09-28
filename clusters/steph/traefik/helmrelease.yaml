@@ -28,6 +28,6 @@ spec:
     ports:
       web:
         nodePort: 32080
-        redirectTo: websecure
+        #redirectTo: websecure
       websecure:
         nodePort: 32443
