@@ -46,6 +46,12 @@ Now to simply check the nodes with full details
 kubectl get nodes -o wide
 ```
 
+You can see the dashboard either by console into any server from Hetzner cloud or simply
+
+```sh
+talosctl dashboard
+```
+
 # Adding Flux & Bootstrapping it
 
 The most **important** part of Flux is that the kube credentials passed from Talos need to be byte64decoded and **that's nowhere in the docs**
@@ -92,12 +98,21 @@ Even though you don't have an ingress yet you can check podinfo with
 kubectl port-forward service/podinfo 9898:9898 
 ```
 
+Check errors with
+
+```sh
+flux events
+```
+
+Saves you from using K9s
 # Adding ingress
 
 Stephen ingress of choice is my favourite: Traefik
 
+Ingress won't work without persistent volumes because Traefik needs some PVCs. Its pod is stuck because of this. Remove persistent=true and fixed. 
 
 
-# Important
+# Issues
 
-Notice there's no ingress and no storage classes!
+* Notice there's no ingress and no storage classes!
+* The first time it is run obviously Flux git config (flux_bootstrap_git) won't work because it takes a while for Talos to bootstrap. But once that first run goes you have to wait a little for all servers (console log into any cplane) to see them all ready. **THEN** you can re-run terraform apply. 
