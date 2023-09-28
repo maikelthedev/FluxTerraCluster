@@ -31,5 +31,3 @@ spec:
         redirectTo: websecure
       websecure:
         nodePort: 32443
-    persistence:
-      enabled: true
