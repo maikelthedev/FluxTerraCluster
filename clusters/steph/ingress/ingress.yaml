@@ -18,10 +18,23 @@ spec:
             name: podinfo
             port:
               number: 9898
+  - host: lb.mkl.lol
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-nginx
+            port:
+              number: 80
   tls:
   - hosts:
     - funky.mkl.lol
     secretName: funky-mkl-lol-tls
+ - hosts:
+    - lb.mkl.lol
+    secretName: lb-mkl-lol-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Issuer
@@ -56,3 +69,17 @@ spec:
   commonName: funky.mkl.lol
   dnsNames:
   - funky.mkl.lol
+--- # TODO: Move this certificates to their own places
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lb-mkl-lol
+  namespace: default
+spec:
+  secretName: lb-mkl-lol-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: Issuer
+  commonName: lb.mkl.lol
+  dnsNames:
+  - lb.mkl.lol
