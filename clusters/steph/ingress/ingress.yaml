@@ -32,6 +32,7 @@ spec:
   - hosts:
     - funky.mkl.lol
     secretName: funky-mkl-lol-tls
+  - hosts:
     - lb.mkl.lol
     secretName: lb-mkl-lol-tls
 ---
