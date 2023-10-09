@@ -12,8 +12,5 @@ spec:
         kind: HelmRepository
         name: mlohr
   values:
-    secret.hcloudApiToken:
-      secretRef:
-        name: hetzner-token
-        key: secret-key
+    secret.existingSecretName: hcloud
   releaseName: hcloud-csi-driver 

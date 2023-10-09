@@ -15,8 +15,8 @@ Beware, this file loses content as I get stuff done, anything worth remembering 
 - [x] Bootstrap Talos directly from Terraform
 - [x] Add Flux
 - [x] Add anything using Terraform AND Flux like Podinfo
-- [ ] Add an Traefik as Ingress
-- [ ] Add Cert-Manager
+- [x] Add an Traefik as Ingress
+- [x] Add Cert-Manager
 - [ ] Add CSI as Storage classes.
 - [ ] Add Velero
 
@@ -109,9 +109,49 @@ Saves you from using K9s
 
 Stephen ingress of choice is my favourite: Traefik
 
-Ingress won't work without persistent volumes because Traefik needs some PVCs. Its pod is stuck because of this. Remove persistent=true and fixed. 
+Ingress won't work without persistent volumes because Traefik needs some PVCs. Its pod is stuck because of this. 
+
+# Adding Cert-Manager
+
+Created a namespace
+Beware certs are deployed differently, same as traefik and ingress are two separated things. 
+
+J-F-C it was as simple as putting the release and the source in the same namespace and not the mess described [here](https://github.com/fluxcd/flux2/discussions/3009)
+
+The way to solve the CRD install conundrum is to modify the hell release to add the installCRDs=true clause as values not extra args, not args. Like this
+
+```yaml
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: cert-manager
+      version: 'v1.9.1'
+      sourceRef:
+        kind: HelmRepository
+        name: jetstack
+  values:
+    installCRDs: true
+  releaseName: cert-manager
+```
+
+I've added all stuff for the ingress in the ingress folder including the certificate issuer and actual certs. 
 
 
+# Adding Persistence
+
+Created a namespace called Hetzner
+
+Bware how you apply the secret because that's not on the repo. 
+
+# Adding Velero
+
+Created a namespace
 # Issues
 
 * Notice there's no ingress and no storage classes!
