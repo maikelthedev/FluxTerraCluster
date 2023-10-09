@@ -1,13 +1,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: podinfo
+  name: traefik-ingress
   namespace: default
   annotations:
     kubernetes.io/ingress.class: "traefik"
     cert-manager.io/cluster-issuer: letsencrypt-prod
-  labels:
-    app: podinfo
 spec:
   rules:
   - host: funky.mkl.lol
