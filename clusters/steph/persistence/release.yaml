@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: hcloud-csi-driver
+  namespace: hetzner
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: hcloud-csi-driver 
+      sourceRef:
+        kind: HelmRepository
+        name: mlohr
+  values:
+    secret.hcloudApiToken:
+      secretRef:
+        name: hetzner-token
+        key: secret-key
+  releaseName: hcloud-csi-driver 
