@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: podinfo
   namespace: default
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   labels:
     app: podinfo
 spec:
@@ -17,3 +20,41 @@ spec:
             name: podinfo
             port:
               number: 9898
+  tls:
+  - hosts:
+    - funky.mkl.lol
+    secretName: funky-mkl-lol-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-prod
+  namespace: default
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: maikel@maikel.uk
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    # Enable the HTTP-01 challenge provider
+    solvers:
+    - http01:
+        ingress:
+          class: traefik
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: funky-mkl-lol
+  namespace: default
+spec:
+  secretName: funky-mkl-lol-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: Issuer
+  commonName: funky.mkl.lol
+  dnsNames:
+  - funky.mkl.lol
