@@ -7,9 +7,10 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: jetstack/cert-manager
+      chart: cert-manager
       version: 'v1.9.1'
       sourceRef:
         kind: HelmRepository
         name: jetstack
-      interval: 1m
+        namespace: flux-system
+  releaseName: cert-manager
