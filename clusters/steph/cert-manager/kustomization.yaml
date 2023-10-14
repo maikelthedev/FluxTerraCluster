@@ -4,4 +4,4 @@ resources:
 - namespace.yaml
 - source.yaml
 - release.yaml
-namespace: certmanager
+namespace: cert-manager
