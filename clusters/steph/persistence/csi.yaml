@@ -319,9 +319,9 @@ spec:
       nodeSelector:
         #node.cloudprovider.kubernetes.io/platform: hcloud
         node-role.kubernetes.io/worker: "true"  # Select nodes with the worker label
-      tolerations:
-        - effect: NoSchedule
-          operator: Exists
+      # tolerations:
+      #   - effect: NoSchedule
+      #     operator: Exists
       containers:
       - args:
         - --kubelet-registration-path=/var/lib/kubelet/plugins/csi.hetzner.cloud/socket
