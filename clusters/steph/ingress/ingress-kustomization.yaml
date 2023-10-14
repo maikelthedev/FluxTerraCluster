@@ -8,3 +8,6 @@ resources:
 spec:
   dependsOn:
     - name: certmanager
+    - name: traefik
+    
+    
