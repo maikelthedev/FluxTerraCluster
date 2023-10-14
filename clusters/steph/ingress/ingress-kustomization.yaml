@@ -3,11 +3,11 @@ kind: Kustomization
 metadata:
   name: ingress
   namespace: default
-resources:
-- ingress.yaml
 spec:
   dependsOn:
     - name: certmanager
     - name: traefik
+  resources:
+    - ingress.yaml
     
     
