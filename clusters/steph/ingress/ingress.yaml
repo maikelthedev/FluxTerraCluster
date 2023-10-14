@@ -63,6 +63,8 @@ metadata:
   namespace: default
 spec:
   secretName: funky-mkl-lol-tls
+  dependsOn:
+    - name: cert-manager
   issuerRef:
     name: letsencrypt-prod
     kind: Issuer
@@ -76,6 +78,8 @@ metadata:
   name: lb-mkl-lol
   namespace: default
 spec:
+  dependsOn:
+    - name: cert-manager
   secretName: lb-mkl-lol-tls
   issuerRef:
     name: letsencrypt-prod
