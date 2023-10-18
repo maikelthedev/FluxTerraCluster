@@ -33,11 +33,22 @@ resource "github_repository_deploy_key" "this" {
   read_only  = "false"
 }
 
-# Interestingly enough destructing this, destroys the Flux folder on the repository
+
+data "talos_cluster_health" "health" {
+  depends_on = [data.talos_cluster_kubeconfig.mykubeconfig]
+  client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
+  control_plane_nodes = [for node in hcloud_server.controlplane: node.ipv4_address]
+  endpoints = [for node in hcloud_server.controlplane: node.ipv4_address]
+  worker_nodes = [for node in hcloud_server.workers: node.ipv4_address]
+
+}
+
+#Interestingly enough destructing this, destroys the Flux folder on the repository
 resource "flux_bootstrap_git" "this" {
   depends_on = [
     github_repository_deploy_key.this,  
-    talos_machine_bootstrap.this
+    talos_machine_bootstrap.this,
+    data.talos_cluster_health.health
   ]  
   path = var.flux_cluster_path
 }
