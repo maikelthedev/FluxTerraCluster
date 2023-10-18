@@ -16,6 +16,10 @@ terraform {
       source  = "integrations/github"
       version = ">=5.18.0"
     }
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = ">= 1.22.2"
+    }
   }
 }
 
@@ -27,4 +31,8 @@ provider "hcloud" {
 
 provider "talos" {
   # Configuration options
+}
+
+provider "digitalocean" {
+  token = var.do_token
 }

@@ -16,5 +16,8 @@ variable "flux_cluster_path" {
     
 }
 
+variable "do_token" {
+  
+}
 # Needed for hcloud
 variable "hcloud_token" {}
