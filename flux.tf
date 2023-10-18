@@ -35,6 +35,9 @@ resource "github_repository_deploy_key" "this" {
 
 # Interestingly enough destructing this, destroys the Flux folder on the repository
 resource "flux_bootstrap_git" "this" {
-  depends_on = [github_repository_deploy_key.this]
+  depends_on = [
+    github_repository_deploy_key.this,  
+    talos_machine_bootstrap.this
+  ]  
   path = var.flux_cluster_path
 }

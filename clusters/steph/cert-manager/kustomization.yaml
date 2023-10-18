@@ -7,6 +7,6 @@ resources:
 - namespace.yaml
 - source.yaml
 - release.yaml
-specs:
-  dependsOn:
-    - name: traefik
+# specs:
+#   dependsOn:
+#     - name: traefik
