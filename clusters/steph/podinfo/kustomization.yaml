@@ -4,6 +4,7 @@ metadata:
   name: podinfo
   namespace: podinfo
 resources:
+- namespace.yaml
 - podinfo-source.yaml
 - podinfo-kustomization.yaml
 
