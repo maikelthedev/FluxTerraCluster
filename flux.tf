@@ -40,6 +40,9 @@ data "talos_cluster_health" "health" {
   control_plane_nodes = [for node in hcloud_server.controlplane: node.ipv4_address]
   endpoints = [for node in hcloud_server.controlplane: node.ipv4_address]
   worker_nodes = [for node in hcloud_server.workers: node.ipv4_address]
+  timeouts = {
+    read = "10m" # It can take ten minutes for Talos to be up max
+  }
 
 }
 
