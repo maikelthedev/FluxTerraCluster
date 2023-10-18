@@ -17,8 +17,10 @@ Beware, this file loses content as I get stuff done, anything worth remembering 
 - [x] Add anything using Terraform AND Flux like Podinfo
 - [x] Add an Traefik as Ingress
 - [x] Add Cert-Manager
-- [ ] Add CSI as Storage classes.
-- [ ] Add Velero
+- [x] Add CSI as Storage classes.
+- [x] Add Velero
+- [x] Sort the creation order in both Terraform and Flux
+- [ ] Clean up vars, organise secrets
 
 ## Talos Boostrapping
 
@@ -38,6 +40,12 @@ Use this so you can use kubectl and the common alias you've always used
 
 ```bash
 talosctl kubeconfig /tmp/kubeconfig && export KUBECONFIG=/tmp/kubeconfig && alias k=kubectl
+```
+
+Both combined:
+
+```bash
+terraform output -json talos_talosconfig | jq -r . > /tmp/talosconfig  && export TALOSCONFIG=/tmp/talosconfig && talosctl kubeconfig /tmp/kubeconfig --force && export KUBECONFIG=/tmp/kubeconfig && alias k=kubectl
 ```
 
 Now to simply check the nodes with full details
@@ -145,14 +153,57 @@ I've added all stuff for the ingress in the ingress folder including the certifi
 
 # Adding Persistence
 
+Remember this needs secrets.yaml to work
+
 Created a namespace called Hetzner
 
 Bware how you apply the secret because that's not on the repo. 
 
+Will need to add labels to workers as 
+
+```bash
+kubectl label nodes <node-name> node-role.kubernetes.io/worker=true
+```
+
+They need to be created on kube-system namespace
+
+
 # Adding Velero
 
-Created a namespace
-# Issues
+Beware the secret needs the namespace
 
-* Notice there's no ingress and no storage classes!
-* The first time it is run obviously Flux git config (flux_bootstrap_git) won't work because it takes a while for Talos to bootstrap. But once that first run goes you have to wait a little for all servers (console log into any cplane) to see them all ready. **THEN** you can re-run terraform apply. 
+Created a namespace
+# Issues to fix before it's finished
+
+##### 1. Stuck in fluxboostrapgit.this
+Here:
+
+```bash
+flux_bootstrap_git.this: Still creating... [1m10s elapsed]
+│ Error: Bootstrap run error
+│
+│   with flux_bootstrap_git.this,
+│   on flux.tf line 37, in resource "flux_bootstrap_git" "this":
+│   37: resource "flux_bootstrap_git" "this" {
+│
+│ CustomResourceDefinition/alerts.notification.toolkit.fluxcd.io dry-run failed: Get "https://167.235.111.172:6443/api?timeout=32s": EOF
+```
+It creates the public key but tries to start up Flux before the Talos cluster is ready. 
+
+Let's see first if I can make it depend on Talos being boostrapped. 
+
+The next error is stuck in cert-manager
+
+```bash
+Kustomization/flux-system	kustomize build failed: accumulating resources: accumulation err='accumulating resources from './cert-manager': read /tmp/kustomization-2443421633/clusters/steph/cert-manager: is a directory': couldn't make target for path '/tmp/kustomization-2443421633/clusters/steph/cert-manager': invalid Kustomization: json: unknown field "specs"	           
+```
+
+When everything is move outside the cluster/steph folder and only left the bits of Flux, it works. 
+Trying now from scratch deleting also that folder after a terraform destroy didn't. 
+
+Fixed it by using talos_cluster_health as stopper (dependecy) for the Flux part. 
+Fixed the within-Flux part by moving everything out of the cluster folder and inside a different one, otherwise Flux follows its own order. 
+
+##### 2. Make everything a variable
+
+TODO:
