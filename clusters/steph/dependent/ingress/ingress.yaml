@@ -56,30 +56,30 @@ spec:
         ingress:
           class: traefik
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: funky-mkl-lol
-  namespace: default
-spec:
-  secretName: funky-mkl-lol-tls
-  issuerRef:
-    name: letsencrypt-prod
-    kind: Issuer
-  commonName: funky.mkl.lol
-  dnsNames:
-  - funky.mkl.lol
---- # TODO: Move this certificates to their own places
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: lb-mkl-lol
-  namespace: default
-spec:
-  secretName: lb-mkl-lol-tls
-  issuerRef:
-    name: letsencrypt-prod
-    kind: Issuer
-  commonName: lb.mkl.lol
-  dnsNames:
-  - lb.mkl.lol
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: funky-mkl-lol
+#   namespace: default
+# spec:
+#   secretName: funky-mkl-lol-tls
+#   issuerRef:
+#     name: letsencrypt-prod
+#     kind: Issuer
+#   commonName: funky.mkl.lol
+#   dnsNames:
+#   - funky.mkl.lol
+# --- # TODO: Move this certificates to their own places
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: lb-mkl-lol
+#   namespace: default
+# spec:
+#   secretName: lb-mkl-lol-tls
+#   issuerRef:
+#     name: letsencrypt-prod
+#     kind: Issuer
+#   commonName: lb.mkl.lol
+#   dnsNames:
+#   - lb.mkl.lol
