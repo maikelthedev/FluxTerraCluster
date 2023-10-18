@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: "./clusters/steph/independent/traefik"
+  path: "./clusters/independent/traefik"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -19,7 +19,7 @@ metadata:
 spec:
 
   interval: 5m
-  path: "./clusters/steph/independent/cert-manager"
+  path: "./clusters/independent/cert-manager"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -33,7 +33,7 @@ metadata:
 spec:
 
   interval: 5m
-  path: "./clusters/steph/independent/persistence"
+  path: "./clusters/independent/persistence"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -47,7 +47,7 @@ metadata:
 spec:
 
   interval: 5m
-  path: "./clusters/steph/independent/velero"
+  path: "./clusters/independent/velero"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -63,7 +63,7 @@ spec:
     - name: cert-manager
     - name: traefik
   interval: 5m
-  path: "./clusters/steph/dependent/ingress"
+  path: "./clusters/dependent/ingress"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -78,7 +78,7 @@ spec:
   dependsOn:
     - name: persistence
   interval: 5m
-  path: "./clusters/steph/dependent/basic-www"
+  path: "./clusters/dependent/basic-www"
   prune: true
   sourceRef:
     kind: GitRepository
@@ -94,7 +94,7 @@ spec:
     - name: cert-manager
     - name: traefik
   interval: 10m0s
-  path: ./clusters/steph/dependent/certificates
+  path: ./clusters/dependent/certificates
   prune: true
   sourceRef:
     kind: GitRepository
