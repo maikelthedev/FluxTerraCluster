@@ -10,6 +10,7 @@ resource "hcloud_server" "workers" {
     network_id = hcloud_network.mynetwork.id
     ip         = "10.0.1.${count.index + 13}"
   }
+  #firewall_ids = [hcloud_firewall.funky_firewall.id]
   image = "124785373" # Instructions on how to create an image in hetzner here https://www.talos.dev/v1.5/talos-guides/install/cloud-platforms/hetzner/
 }
 
@@ -22,6 +23,7 @@ resource "hcloud_server" "controlplane" {
   }
   server_type = "cax11"
   image = "124785373"
+  #firewall_ids = [hcloud_firewall.funky_firewall.id]
   network {
     network_id = hcloud_network.mynetwork.id
     ip         = "10.0.1.${count.index + 10}"

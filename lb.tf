@@ -11,6 +11,7 @@ resource "hcloud_load_balancer_target" "load_balancer_target_cp" {
   type             = "label_selector"
   load_balancer_id = hcloud_load_balancer.load_balancer.id
   label_selector = "type=controlplane"
+  use_private_ip = true
 }
 
 resource "hcloud_load_balancer_network" "srvnetwork" {
