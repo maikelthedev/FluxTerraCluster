@@ -12,12 +12,9 @@ variable "github_repository" {
   type = string
 }
 
-variable "flux_cluster_path" {
-    
+variable "flux_cluster_path" { }
+variable "do_token" { }
+variable "aws_token" { 
+  // To get this one run in BASH 'cat /whateverfilewithAWscredentials | base64'
 }
-
-variable "do_token" {
-  
-}
-# Needed for hcloud
 variable "hcloud_token" {}
