@@ -48,3 +48,18 @@ data "talos_cluster_kubeconfig" "mykubeconfig" {
   client_configuration = talos_machine_secrets.machine_secrets.client_configuration
   node                 = hcloud_server.controlplane[1].ipv4_address
 }
+
+data "talos_cluster_health" "health" {
+  depends_on = [data.talos_cluster_kubeconfig.mykubeconfig]
+  client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
+  #control_plane_nodes = [for node in hcloud_server.controlplane: node.ipv4_address]
+  control_plane_nodes = [for node in hcloud_server.controlplane: element([for network in node.network: network.ip],0)]
+  endpoints = [for node in hcloud_server.controlplane: node.ipv4_address]
+  #endpoints = [for node in hcloud_server.controlplane: element([for network in node.network: network.ip],0)]
+  #worker_nodes = [for node in hcloud_server.workers: node.ipv4_address]
+  worker_nodes = [for node in hcloud_server.workers: element([for network in node.network: network.ip],0)]
+  timeouts = {
+    read = "10m" # It can take ten minutes for Talos to be up max
+  }
+
+}

@@ -6,12 +6,11 @@ resource "hcloud_server" "workers" {
   labels = {
     type = "worker"
   }
-  # network {
-  #   network_id = hcloud_network.mynetwork.id
-  #   ip         = "10.0.1.${count.index + 13}"
-  # }
+  network {
+    network_id = hcloud_network.mynetwork.id
+    ip         = "10.0.1.${count.index + 13}"
+  }
   image = "124785373" # Instructions on how to create an image in hetzner here https://www.talos.dev/v1.5/talos-guides/install/cloud-platforms/hetzner/
-  #image       = "ubuntu-22.04" # Placeholder OS. This will change to Talos OS
 }
 
 resource "hcloud_server" "controlplane" {
@@ -23,9 +22,8 @@ resource "hcloud_server" "controlplane" {
   }
   server_type = "cax11"
   image = "124785373"
-  # network {
-  #   network_id = hcloud_network.mynetwork.id
-  #   ip         = "10.0.1.${count.index + 10}"
-  # }
-  #image       = "ubuntu-22.04" # Placeholder OS. This will change to Talos OS
+  network {
+    network_id = hcloud_network.mynetwork.id
+    ip         = "10.0.1.${count.index + 10}"
+  }
 }

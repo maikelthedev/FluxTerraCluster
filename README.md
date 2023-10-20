@@ -47,3 +47,8 @@ A git repo (this one) with some terraform to deploy the cluster, and flux to mai
 - 27th Sept 2023: You can now deploy fully a Talos cluster with a LB just need to set up a terraform.tfvars with content:
 
 hcloud_token = "your Heztner token"
+
+## Test services
+* Podinfo:
+
+* Basic-nginx:

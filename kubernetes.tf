@@ -1,4 +1,5 @@
-resource "kubernetes_namespace" "example" {
+# We need the velero namespaces to assign its secret (AWS config) 
+resource "kubernetes_namespace" "velero" {
   depends_on = [
     data.talos_cluster_health.health
   ]

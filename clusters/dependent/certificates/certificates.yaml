@@ -1,27 +1,27 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: funky-mkl-lol
+  name: podinfo-mkl-lol
   namespace: default
 spec:
-  secretName: funky-mkl-lol-tls
+  secretName: podinfo-mkl-lol-tls
   issuerRef:
     name: letsencrypt-prod
     kind: Issuer
-  commonName: funky.mkl.lol
+  commonName: podinfo.mkl.lol
   dnsNames:
-  - funky.mkl.lol
+  - podinfo.mkl.lol
 --- 
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: lb-mkl-lol
+  name: nginx-mkl-lol
   namespace: default
 spec:
-  secretName: lb-mkl-lol-tls
+  secretName: nginx-mkl-lol-tls
   issuerRef:
     name: letsencrypt-prod
     kind: Issuer
-  commonName: lb.mkl.lol
+  commonName: nginx.mkl.lol
   dnsNames:
-  - lb.mkl.lol
+  - nginx.mkl.lol

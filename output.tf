@@ -25,3 +25,8 @@ output "kubeconfig" {
     value = data.talos_cluster_kubeconfig.mykubeconfig
     sensitive = true
 }
+
+output "testserver" {
+    value = element([for network in hcloud_server.controlplane[1].network : network.ip], 0)
+    sensitive = true
+}

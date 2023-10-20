@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   rules:
-  - host: funky.mkl.lol
+  - host: podinfo.mkl.lol
     http:
       paths:
       - path: /
@@ -18,7 +18,7 @@ spec:
             name: podinfo
             port:
               number: 9898
-  - host: lb.mkl.lol
+  - host: nginx.mkl.lol
     http:
       paths:
       - path: /
@@ -30,9 +30,9 @@ spec:
               number: 80
   tls:
   - hosts:
-    - funky.mkl.lol
-    secretName: funky-mkl-lol-tls
+    - podinfo.mkl.lol
+    secretName: podinfo-mkl-lol-tls
   - hosts:
-    - lb.mkl.lol
-    secretName: lb-mkl-lol-tls
+    - nginx.mkl.lol
+    secretName: nginx-mkl-lol-tls
 ---
