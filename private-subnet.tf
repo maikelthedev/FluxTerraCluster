@@ -1,4 +1,4 @@
-resource "hcloud_network_subnet" "mysubnet" {
+resource "hcloud_network_subnet" "funkysubnet" {
   network_id   = hcloud_network.mynetwork.id
   type         = "cloud"
   network_zone = "eu-central"

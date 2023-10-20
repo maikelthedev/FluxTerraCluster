@@ -1,5 +1,6 @@
 resource "hcloud_server" "workers" {
   count       = var.instances_config.worker_nodes
+  depends_on = [ hcloud_network_subnet.funkysubnet ]
   name        = "worker${count.index + 1}" 
   user_data = data.talos_machine_configuration.worker.machine_configuration
   server_type = var.instances_config.worker_type
@@ -15,6 +16,7 @@ resource "hcloud_server" "workers" {
 
 resource "hcloud_server" "controlplane" {
   count       = var.instances_config.cplane_nodes
+  depends_on = [ hcloud_network_subnet.funkysubnet ]
   name        = "cplane${count.index + 1}"  
   user_data = data.talos_machine_configuration.controlplane.machine_configuration
   labels = {

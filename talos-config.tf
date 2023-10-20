@@ -50,7 +50,10 @@ data "talos_cluster_kubeconfig" "mykubeconfig" {
 }
 
 data "talos_cluster_health" "health" {
-  depends_on = [data.talos_cluster_kubeconfig.mykubeconfig]
+  depends_on = [
+    data.talos_cluster_kubeconfig.mykubeconfig,
+    hcloud_load_balancer_target.load_balancer_target_cp
+    ]
   client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
   #control_plane_nodes = [for node in hcloud_server.controlplane: node.ipv4_address]
   control_plane_nodes = [for node in hcloud_server.controlplane: element([for network in node.network: network.ip],0)]

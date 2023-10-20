@@ -1,6 +1,8 @@
 # We need the velero namespaces to assign its secret (AWS config) 
 resource "kubernetes_namespace" "velero" {
   depends_on = [
+    hcloud_load_balancer_target.load_balancer_target_cp,
+    hcloud_load_balancer_service.load_balancer_service_talos,
     data.talos_cluster_health.health
   ]
   metadata {
@@ -30,6 +32,7 @@ resource "kubernetes_secret" "hcloud" {
   data = {
     token = var.hcloud_token
   }
+
 }
 
 resource "kubernetes_secret" "aws_token" {
@@ -49,4 +52,6 @@ resource "kubernetes_secret" "aws_token" {
   data = {
     cloud = base64decode(var.aws_token)
   }
+
 }
+
