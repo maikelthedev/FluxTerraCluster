@@ -5,14 +5,14 @@ resource "talos_machine_secrets" "machine_secrets" {
 
 # These two the equivalent to "talosctl gen config talos-k8s-hcloud-tutorial https://<load balancer IP or DNS>:6443" it creates data that contains equivalents to workers.yaml and controlplane.yaml to be used as user_data on servers.tf
 data "talos_machine_configuration" "controlplane" {
-  cluster_name     = "funky-cluster"
+  cluster_name     = var.cluster_name
   machine_type     = "controlplane"
   cluster_endpoint = "https://${hcloud_load_balancer.load_balancer.ipv4}:6443"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
 }
 
 data "talos_machine_configuration" "worker" {
-  cluster_name     = "funky-cluster"
+  cluster_name     = var.cluster_name
   machine_type     = "worker"
   cluster_endpoint = "https://${hcloud_load_balancer.load_balancer.ipv4}:6443"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
@@ -21,7 +21,7 @@ data "talos_machine_configuration" "worker" {
 
 # This creates talosconfig itself, it is the equivalent to talosctl config endpoints blablabla...
 data "talos_client_configuration" "this" {
-  cluster_name         = "funky-cluster"
+  cluster_name         = var.cluster_name
   client_configuration = talos_machine_secrets.machine_secrets.client_configuration
   nodes                 = [hcloud_server.controlplane[1].ipv4_address]
   endpoints = [hcloud_server.controlplane[1].ipv4_address] #Notice that in both cases and below worker included, needs the IP of the first (or any) of the controlplane nodes and it cannot be an internal one because this is for YOU to connect using Talosctl
