@@ -1,0 +1,22 @@
+hcloud_token = "...." # How to get one here: https://docs.hetzner.com/cloud/api/getting-started/generating-api-token/
+
+flux_cluster_path = "clusters/steph" # The folder on your git repo where you want Flux to bootstrap from. 
+
+do_token     = "...." # Digital Ocean token, optional, I use DO as DNS because it is free. 
+
+aws_token = "...." # Tricky, get your AWS file, usually somewhere like ~/.aws/config and cat it to base64 to get what comes here. eg: "cat ~/.aws/config | base64"
+
+github = {
+  repo = "FluxTerraCluster" # Name of the repo you want Flux to use. 
+  bot_name = "Flux" # Name of the user you want Flux to use to change code in the repo. 
+  org = "maikelthedev" # Name of the account in Github or Org. 
+  token = "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" # Simple GIthub token for that account. 
+} 
+
+load_balancer_config = {
+    ip = "10.0.1.5" # IP you want to assign to the load balancer. 
+    name = "funky-load-balancer"
+    location = "nbg1" # This one is Amsterdam. 
+    type = "lb11" # Size of the Load balancer
+}
+
